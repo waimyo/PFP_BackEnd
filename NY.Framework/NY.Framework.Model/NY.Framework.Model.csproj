@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Commands\bin\**" />
+    <Compile Remove="Repositories\CatalogSettings\**" />
+    <Compile Remove="Repositories\Entry\**" />
+    <Compile Remove="Repositories\Reports\**" />
+    <Compile Remove="Repositories\Staff_Profile\**" />
+    <Compile Remove="Repositories\StoreProcedureRepository\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Commands\bin\**" />
+    <EmbeddedResource Remove="Repositories\CatalogSettings\**" />
+    <EmbeddedResource Remove="Repositories\Entry\**" />
+    <EmbeddedResource Remove="Repositories\Reports\**" />
+    <EmbeddedResource Remove="Repositories\Staff_Profile\**" />
+    <EmbeddedResource Remove="Repositories\StoreProcedureRepository\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Commands\bin\**" />
+    <None Remove="Repositories\CatalogSettings\**" />
+    <None Remove="Repositories\Entry\**" />
+    <None Remove="Repositories\Reports\**" />
+    <None Remove="Repositories\Staff_Profile\**" />
+    <None Remove="Repositories\StoreProcedureRepository\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Json.Net" Version="1.0.18" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NY.Framework.Infrastructure\NY.Framework.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Rules\DataRules\" />
+  </ItemGroup>
+
+</Project>
