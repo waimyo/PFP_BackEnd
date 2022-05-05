@@ -16,7 +16,8 @@
           "System.IO": "4.3.0",
           "System.Web.Helpers.Crypto": "3.2.3",
           "colorlife.xceed.words.net.core": "2.1.2",
-          "log4net": "2.0.8"
+          "log4net": "2.0.8",
+          "StackExchange.Redis.StrongName": "1.2.4.0"
         },
         "runtime": {
           "NY.Framework.Infrastructure.dll": {}
@@ -959,6 +960,14 @@
           "System.Threading": "4.0.11",
           "System.Xml.ReaderWriter": "4.0.11"
         }
+      },
+      "StackExchange.Redis.StrongName/1.2.4.0": {
+        "runtime": {
+          "StackExchange.Redis.StrongName.dll": {
+            "assemblyVersion": "1.2.4.0",
+            "fileVersion": "1.2.4.0"
+          }
+        }
       }
     }
   },
@@ -1618,6 +1627,11 @@
       "sha512": "sha512-2eZu6IP+etFVBBFUFzw2w6J21DqIN5eL9Y8r8JfJWUmV28Z5P0SNU01oCisVHQgHsDhHPnmq2s1hJrJCFZWloQ==",
       "path": "system.xml.xmldocument/4.0.1",
       "hashPath": "system.xml.xmldocument.4.0.1.nupkg.sha512"
+    },
+    "StackExchange.Redis.StrongName/1.2.4.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

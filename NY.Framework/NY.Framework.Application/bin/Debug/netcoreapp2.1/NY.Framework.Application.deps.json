@@ -13,7 +13,8 @@
           "NY.Framework.Infrastructure": "1.0.0",
           "NY.Framework.Model": "1.0.0",
           "Newtonsoft.Json": "12.0.3",
-          "PgpCore": "2.1.1"
+          "PgpCore": "2.1.1",
+          "StackExchange.Redis.StrongName": "1.2.4.0"
         },
         "runtime": {
           "NY.Framework.Application.dll": {}
@@ -1517,6 +1518,14 @@
         "runtime": {
           "NY.Framework.Model.dll": {}
         }
+      },
+      "StackExchange.Redis.StrongName/1.2.4.0": {
+        "runtime": {
+          "StackExchange.Redis.StrongName.dll": {
+            "assemblyVersion": "1.2.4.0",
+            "fileVersion": "1.2.4.0"
+          }
+        }
       }
     }
   },
@@ -2546,6 +2555,11 @@
     },
     "NY.Framework.Model/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "StackExchange.Redis.StrongName/1.2.4.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

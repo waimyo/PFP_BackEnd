@@ -1,0 +1,466 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Web\\NY.Framework.Web.csproj": {}
+  },
+  "projects": {
+    "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Application\\NY.Framework.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Application\\NY.Framework.Application.csproj",
+        "projectName": "NY.Framework.Application",
+        "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Application\\NY.Framework.Application.csproj",
+        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+        "outputPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "targetAlias": "netcoreapp2.1",
+            "projectReferences": {
+              "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.DataAccess\\NY.Framework.DataAccess.csproj": {
+                "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.DataAccess\\NY.Framework.DataAccess.csproj"
+              },
+              "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Infrastructure\\NY.Framework.Infrastructure.csproj": {
+                "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Infrastructure\\NY.Framework.Infrastructure.csproj"
+              },
+              "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Model\\NY.Framework.Model.csproj": {
+                "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Model\\NY.Framework.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "targetAlias": "netcoreapp2.1",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.0.1, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "PgpCore": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.DataAccess\\NY.Framework.DataAccess.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.DataAccess\\NY.Framework.DataAccess.csproj",
+        "projectName": "NY.Framework.DataAccess",
+        "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.DataAccess\\NY.Framework.DataAccess.csproj",
+        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+        "outputPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.DataAccess\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "targetAlias": "netcoreapp2.1",
+            "projectReferences": {
+              "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Infrastructure\\NY.Framework.Infrastructure.csproj": {
+                "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Infrastructure\\NY.Framework.Infrastructure.csproj"
+              },
+              "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Model\\NY.Framework.Model.csproj": {
+                "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Model\\NY.Framework.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "targetAlias": "netcoreapp2.1",
+          "dependencies": {
+            "Autofac": {
+              "target": "Package",
+              "version": "[4.9.4, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Proxies": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "NPOI": {
+              "target": "Package",
+              "version": "[2.5.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Infrastructure\\NY.Framework.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Infrastructure\\NY.Framework.Infrastructure.csproj",
+        "projectName": "NY.Framework.Infrastructure",
+        "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Infrastructure\\NY.Framework.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+        "outputPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "targetAlias": "netcoreapp2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "targetAlias": "netcoreapp2.1",
+          "dependencies": {
+            "BCrypt-Core": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "DocumentFormat.OpenXml": {
+              "target": "Package",
+              "version": "[2.11.0, )"
+            },
+            "DotNetCore.NPOI": {
+              "target": "Package",
+              "version": "[1.2.2, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "System.IO": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Web.Helpers.Crypto": {
+              "target": "Package",
+              "version": "[3.2.3, )"
+            },
+            "colorlife.xceed.words.net.core": {
+              "target": "Package",
+              "version": "[2.1.2, )"
+            },
+            "log4net": {
+              "target": "Package",
+              "version": "[2.0.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Model\\NY.Framework.Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Model\\NY.Framework.Model.csproj",
+        "projectName": "NY.Framework.Model",
+        "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Model\\NY.Framework.Model.csproj",
+        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+        "outputPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Model\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "targetAlias": "netcoreapp2.1",
+            "projectReferences": {
+              "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Infrastructure\\NY.Framework.Infrastructure.csproj": {
+                "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Infrastructure\\NY.Framework.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "targetAlias": "netcoreapp2.1",
+          "dependencies": {
+            "Json.Net": {
+              "target": "Package",
+              "version": "[1.0.18, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Web\\NY.Framework.Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Web\\NY.Framework.Web.csproj",
+        "projectName": "NY.Framework.Web",
+        "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Web\\NY.Framework.Web.csproj",
+        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
+        "outputPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Web\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "targetAlias": "netcoreapp2.1",
+            "projectReferences": {
+              "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Application\\NY.Framework.Application.csproj": {
+                "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Application\\NY.Framework.Application.csproj"
+              },
+              "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.DataAccess\\NY.Framework.DataAccess.csproj": {
+                "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.DataAccess\\NY.Framework.DataAccess.csproj"
+              },
+              "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Infrastructure\\NY.Framework.Infrastructure.csproj": {
+                "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Infrastructure\\NY.Framework.Infrastructure.csproj"
+              },
+              "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Model\\NY.Framework.Model.csproj": {
+                "projectPath": "D:\\PFP (29-6-2021)\\PFP\\PFP_BackEnd\\NY.Framework\\NY.Framework.Model\\NY.Framework.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "targetAlias": "netcoreapp2.1",
+          "dependencies": {
+            "Autofac.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "DotNetCore.NPOI": {
+              "target": "Package",
+              "version": "[1.2.2, )"
+            },
+            "Json.Net": {
+              "target": "Package",
+              "version": "[1.0.18, )"
+            },
+            "Microsoft.AspNetCore.All": {
+              "target": "Package",
+              "version": "[2.0.5, )"
+            },
+            "Microsoft.AspNetCore.Mvc.WebApiCompatShim": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.1, )"
+            },
+            "Microsoft.Extensions.Logging.Log4Net.AspNetCore": {
+              "target": "Package",
+              "version": "[3.0.3, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.TypeScript.MSBuild": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.9, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[106.12.0, )"
+            },
+            "System.Configuration.ConfigurationManager": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\bin\Debug\netcoreapp2.1\NY.Framework.DataAccess.deps.json
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\bin\Debug\netcoreapp2.1\NY.Framework.DataAccess.dll
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\bin\Debug\netcoreapp2.1\NY.Framework.DataAccess.pdb
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\bin\Debug\netcoreapp2.1\NY.Framework.Infrastructure.dll
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\bin\Debug\netcoreapp2.1\NY.Framework.Model.dll
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\bin\Debug\netcoreapp2.1\NY.Framework.Infrastructure.pdb
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\bin\Debug\netcoreapp2.1\NY.Framework.Model.pdb
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\obj\Debug\netcoreapp2.1\NY.Framework.DataAccess.csproj.AssemblyReference.cache
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\obj\Debug\netcoreapp2.1\NY.Framework.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\obj\Debug\netcoreapp2.1\NY.Framework.DataAccess.AssemblyInfoInputs.cache
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\obj\Debug\netcoreapp2.1\NY.Framework.DataAccess.AssemblyInfo.cs
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\obj\Debug\netcoreapp2.1\NY.Framework.DataAccess.csproj.CoreCompileInputs.cache
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\obj\Debug\netcoreapp2.1\NY.Framework.DataAccess.csproj.CopyComplete
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\obj\Debug\netcoreapp2.1\NY.Framework.DataAccess.dll
+D:\PFP (29-6-2021)\PFP\PFP_BackEnd\NY.Framework\NY.Framework.DataAccess\obj\Debug\netcoreapp2.1\NY.Framework.DataAccess.pdb
