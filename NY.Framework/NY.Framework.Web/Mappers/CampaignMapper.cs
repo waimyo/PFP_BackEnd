@@ -43,8 +43,8 @@ namespace NY.Framework.Web.Mappers
             {
                 queryOption.FilterBy = LinqExpressionHelper.AppendAnd(queryOption.FilterBy,
                   c => c.CreatedByUser.ID == filtervm.MinistryId ||
-                   (c.CreatedByUser.parent_id == filtervm.MinistryId)||
-                  ( c.CreatedByUser.ParentUser.parent_id==filtervm.MinistryId)
+                   c.CreatedByUser.parent_id == filtervm.MinistryId//||
+                   //c.CreatedByUser.ParentUser.parent_id==filtervm.MinistryId
                  );
             }
             //for cpu acc filter
