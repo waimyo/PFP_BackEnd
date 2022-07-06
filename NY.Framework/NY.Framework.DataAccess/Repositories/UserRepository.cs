@@ -89,7 +89,7 @@ namespace NY.Framework.DataAccess.Repositories
         public List<User> GetCPUAccountByMinistry(int ministryid, int roleid)
         {
             //return CustomQuery().Where(u => u.IsDeleted == false && u.ministry_id == ministryid && u.role_id == roleid).ToList();
-            return CustomQuery().Where(u => u.IsDeleted == false && u.parent_id == ministryid && u.role_id == roleid).ToList();
+            return CustomQuery().Where(u => u.IsDeleted == false && u.ministry_id == ministryid && (u.role_id == roleid || u.role_id==2)).ToList();
         }
 
         public List<User> GetDEOAccount(int cpu_id)
@@ -110,6 +110,11 @@ namespace NY.Framework.DataAccess.Repositories
         public int GetCPUAccountCount(int user_id)
         {
             return CustomQuery().Where(u => u.IsDeleted.Equals(false) && u.parent_id == user_id).Count();
+        }
+
+        public List<User> GetCPUAccountOnlyByMinistry(int ministryid, int roleid)
+        {
+            return CustomQuery().Where(u => u.IsDeleted == false && u.parent_id == ministryid && u.role_id == roleid).ToList();
         }
     }
 }

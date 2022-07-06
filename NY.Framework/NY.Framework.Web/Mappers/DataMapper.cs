@@ -224,7 +224,7 @@ namespace NY.Framework.Web.Mappers
         public Data MapModelToEntity(Data entity, DataViewModel entrymodel)
         {
             entity.name = entrymodel.name;
-            entity.mobile = String.Concat(entrymodel.mobile.Where(c => !Char.IsWhiteSpace(c)));
+            entity.mobile = entrymodel.mobile;
             entity.gender = entrymodel.gender;
             entity.service_id = entrymodel.service_id;
             entity.department_id = entrymodel.department_id;
