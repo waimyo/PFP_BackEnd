@@ -47,6 +47,12 @@ namespace NY.Framework.Web.Mappers
                    //c.CreatedByUser.ParentUser.parent_id==filtervm.MinistryId
                  );
             }
+            //for superadmin acc filter
+            if (filtervm.MinistryId > 0 && filtervm.CreatedUserId > 0 && filtervm.MinistryId==filtervm.CreatedUserId)
+            {
+                queryOption.FilterBy = LinqExpressionHelper.AppendAnd(queryOption.FilterBy,
+                  c => c.CreatedByUser.ID == filtervm.CreatedUserId );
+            }
             //for cpu acc filter
             if (filtervm.MinistryId > 0&&filtervm.CreatedUserId > 0)
             {

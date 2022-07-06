@@ -210,7 +210,23 @@ namespace NY.Framework.Web.Controllers.DropDownController
         public JsonResult GetCPUAccountByMinistry(int ministryid)
         {
             // cpu role id = 3
-            List<User> list = userRepo.GetCPUAccountByMinistry(ministryid, 3);
+            List<User> list = new List<User>();
+            if (ministryid > 0)
+            {
+                ministryid = userRepo.Get(ministryid).ministry_id;
+                list = userRepo.GetCPUAccountByMinistry(ministryid, 3);
+            }
+            
+            return Json(list);
+        }
+
+        [Route("GetAllCPUAccountOnlyByMinistry/")]
+        public JsonResult GetAllCPUAccountOnlyByMinistry(int ministryid)
+        {
+            // cpu role id = 3
+            List<User> list = new List<User>();
+            list = userRepo.GetCPUAccountOnlyByMinistry(ministryid, 3);
+
             return Json(list);
         }
 

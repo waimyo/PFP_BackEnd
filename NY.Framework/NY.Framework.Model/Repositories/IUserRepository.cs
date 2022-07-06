@@ -21,6 +21,7 @@ namespace NY.Framework.Model.Repositories
         /* user group */
         List<User> FindByUser(int minId);
         List<User> GetCPUAccountByMinistry(int ministryid, int roleid);
+        List<User> GetCPUAccountOnlyByMinistry(int ministryid, int roleid);
         List<User> GetDEOAccount(int cpu_id);
 
         // all ministry account list

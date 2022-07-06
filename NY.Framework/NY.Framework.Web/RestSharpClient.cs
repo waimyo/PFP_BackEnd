@@ -34,7 +34,11 @@ namespace NY.Framework.Web
             }
             if (_operator.Equals("mpt1111"))
             {
-                restResponse = SendMptOrTelenorSms(smsshortcode, phno, sms,Constants.MptUserName,Constants.MptPassword);
+                //MobileRegularExpression regularExpCls = new MobileRegularExpression();
+                //if (regularExpCls.CheckMPTLength(phno))
+                //{
+                restResponse = SendMptOrTelenorSms(smsshortcode, phno, sms, Constants.MptUserName, Constants.MptPassword);
+            //}
             }
             if (_operator.Equals("telenor1111"))
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NY.Framework.Application;
@@ -117,34 +118,50 @@ namespace NY.Framework.Web.Controllers.pfp
                 {
                     CommandResult<Data> result = new CommandResult<Data>();
                     Data entity = new Data();
-                    if(entrymodel.location_district==0 && entrymodel.location_township > 0)
+                    bool IsSave = true; ;
+                    entrymodel.mobile= String.Concat(entrymodel.mobile.Where(c => !Char.IsWhiteSpace(c)));
+                    MobileRegularExpression regularExpCls = new MobileRegularExpression();
+                    if(regularExpCls.Checkoperator(entrymodel.mobile)== "mpt1111")
                     {
-                        entrymodel.location_district= (Int32)locationRepo.Get(entrymodel.location_township).Parent_Id;
-                    }
-                    if (entrymodel.id > 0)
-                    {
-                        entity = repo.Get(entrymodel.id);
-                        //entity = mapper.MapModelToEntity(entity, entrymodel);
-                        entity.name = entrymodel.name;
-                        entity.ModifiedBy = GetLoggedInId();
-                        entity.ModifiedDate = DateTime.Now;
-                        result = service.CreateOrUpdate(entity);
-                        if (result.Success)
+                        if (regularExpCls.CheckMPTLength(entrymodel.mobile)==false)
                         {
-                            AuditLog(nameof(AuditAction.UPDATE), nameof(ProgramCodeEnum.DATA));
+                            IsSave = false;
+                            result.Success = false;
+                            result.Messages.Add("ဖုန်းနံပါတ်မှားနေပါသည်။");
                         }
                     }
-                    else
+                    if (IsSave)
                     {
-                        entity = mapper.MapModelToEntity(entity, entrymodel);
-                        entity.CreatedDate = DateTime.Now;
-                        entity.CreatedBy = GetLoggedInId();
-                        result = service.CreateOrUpdate(entity);
-                        if (result.Success)
+                        if (entrymodel.location_district == 0 && entrymodel.location_township > 0)
                         {
-                            AuditLog(nameof(AuditAction.ADD), nameof(ProgramCodeEnum.DATA));
+                            entrymodel.location_district = (Int32)locationRepo.Get(entrymodel.location_township).Parent_Id;
+                        }
+                        if (entrymodel.id > 0)
+                        {
+                            entity = repo.Get(entrymodel.id);
+                            //entity = mapper.MapModelToEntity(entity, entrymodel);
+                            entity.name = entrymodel.name;
+                            entity.ModifiedBy = GetLoggedInId();
+                            entity.ModifiedDate = DateTime.Now;
+                            result = service.CreateOrUpdate(entity);
+                            if (result.Success)
+                            {
+                                AuditLog(nameof(AuditAction.UPDATE), nameof(ProgramCodeEnum.DATA));
+                            }
+                        }
+                        else
+                        {
+                            entity = mapper.MapModelToEntity(entity, entrymodel);
+                            entity.CreatedDate = DateTime.Now;
+                            entity.CreatedBy = GetLoggedInId();
+                            result = service.CreateOrUpdate(entity);
+                            if (result.Success)
+                            {
+                                AuditLog(nameof(AuditAction.ADD), nameof(ProgramCodeEnum.DATA));
+                            }
                         }
                     }
+                    
                     return Json(result);
                 }
                 catch (Exception ex)
