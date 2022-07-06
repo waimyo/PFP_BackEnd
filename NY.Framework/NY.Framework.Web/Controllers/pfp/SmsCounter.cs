@@ -23,7 +23,8 @@ namespace NY.Framework.Web
         public void GetSmsCount(Sms sms)
         {
             int unicodechar_count = 0, unicodechar_count_overlimit = 0, engchar_count = 0, engchar_count_overlimit = 0;
-
+            if (string.IsNullOrEmpty(sms.Sms_Text))
+                sms.Sms_Text = "";
             if (sms.Operator.Equals("ooredoo1111"))
             {
                 unicodechar_count = NY.Framework.Infrastructure.Constants.OoredooUnicodeCharCount;

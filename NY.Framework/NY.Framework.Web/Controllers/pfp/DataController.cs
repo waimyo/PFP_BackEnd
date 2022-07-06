@@ -118,7 +118,7 @@ namespace NY.Framework.Web.Controllers.pfp
                 {
                     CommandResult<Data> result = new CommandResult<Data>();
                     Data entity = new Data();
-                    bool IsSave = true; ;
+                    bool IsSave = true;
                     entrymodel.mobile= String.Concat(entrymodel.mobile.Where(c => !Char.IsWhiteSpace(c)));
                     MobileRegularExpression regularExpCls = new MobileRegularExpression();
                     if(regularExpCls.Checkoperator(entrymodel.mobile)== "mpt1111")

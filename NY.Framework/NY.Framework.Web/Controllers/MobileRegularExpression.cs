@@ -52,21 +52,21 @@ namespace NY.Framework.Web.Controllers
 
             if (mpt7digitRegex.IsMatch(phonenumber))
             {
-                if (phonenumber.Length == 10)
+                if (phonenumber.Length == 9)
                     return true;
                 else
                     return false;
             }
             else if (mpt8digitRegex.IsMatch(phonenumber))
             {
-                if (phonenumber.Length == 11)
+                if (phonenumber.Length == 10)
                     return true;
                 else
                     return false;
             }
             else if (mpt9digitRegex.IsMatch(phonenumber))
             {
-                if (phonenumber.Length == 12)
+                if (phonenumber.Length == 11)
                     return true;
                 else
                     return false;
