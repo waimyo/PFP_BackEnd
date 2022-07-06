@@ -66,11 +66,131 @@ namespace NY.Framework.Web.Controllers.pfp
 
         [AllowAnonymous]
         [HttpGet, HttpPost]
+        [Route("SendSmsMptAndTelenorWithAllParams")]
+        public string SendSmsMptAndTelenorWithAllParams()
+        {
+            try
+            {
+                MobileRegularExpression regularExpression = new MobileRegularExpression();
+                string id = Request.Query["id"].FirstOrDefault();
+                string id_smsc = Convert.ToInt32(Request.Query["id_smsc"].FirstOrDefault()).ToString();
+                string message_status = Request.Query["message_status"].FirstOrDefault();
+                string level = Request.Query["level"].FirstOrDefault();
+                string connector = Request.Query["connector"].FirstOrDefault();
+
+                string subdate1 = Request.Query["subdate"].ToString();
+                string subdate = Request.Query["subdate"].FirstOrDefault();
+
+                string donedate = Request.Query["donedate"].FirstOrDefault();
+                string sub = Convert.ToInt32(Request.Query["sub"].FirstOrDefault()).ToString();
+                string dlvrd = Convert.ToInt32(Request.Query["dlvrd"].FirstOrDefault()).ToString();
+                
+                string text = Request.Query["text"].FirstOrDefault();
+                string Direction = Request.Query["Direction"].FirstOrDefault();
+                string Operator = Request.Query["Operator"].FirstOrDefault();
+
+                string err = Request.Query["err"].FirstOrDefault();
+                int err1 = 0;
+                if (!string.IsNullOrEmpty(err))
+                {
+                    err1 = Convert.ToInt32(err);
+                }
+                
+
+                logger.LogDebug("message status = " + message_status);
+                logger.LogDebug("Inside CallBackFunction id= " + id + 
+                    " and error = " + err + " - " + err1 + 
+                    " and id smsc = " + id_smsc +  
+                    " and message status = " + message_status +
+                    " and level = " + level +
+                    " and connector = " + connector +
+                    " and subdate = " + subdate + " - " + subdate1 +
+                    " and donedate = " + donedate +
+                    " and sub = " + sub +
+                    " and dlvrd = " + dlvrd +
+                    " and err = " + err +
+                    " and text = " + text + 
+                    " and Direction = " + Direction + 
+                    " and Operator = " + Operator 
+                );
+            }
+            catch (Exception ex)
+            {
+                logger.Log(ex);
+            }
+
+
+            return "ACK/Jasmin";
+        }
+
+        [AllowAnonymous]
+        [HttpGet, HttpPost]
+        [Route("SendSmsMptAndTelenorWithQueryString")]
+        public string SendSmsMptAndTelenorWithQueryString([FromQuery] SmsEntryViewModel vm)
+        {
+            try
+            {
+                logger.LogDebug("Inside SendSmsMptAndTelenor " + Request.QueryString.ToString());
+                //logger.LogDebug("Inside SendSmsMptAndTelenor " + vm.Operator + vm.DataInfoId + vm.CampaignId + vm.SmsText);
+                //#region SaveSms
+                //CommandResult<Sms> smsresult = new CommandResult<Sms>();
+                //Sms sms = new Sms();
+
+                //sms.IsDeleted = false;
+
+                //string[] arr = vm.Operator.Split('?');
+                //sms.Operator = arr[0];
+                //string message_status = arr[1];
+
+                //sms.Direction = 1;
+                //sms.Sms_Code_Id = vm.SmsCodeId;
+                //logger.LogDebug("operator" + sms.Operator + " status " + message_status + "cid" + sms.Sms_Code_Id);
+                //if (vm.DataInfoId != 0)
+                //{
+                //    sms.DataInfo_Id = vm.DataInfoId;
+                //}
+                //sms.Sms_Time =DateTime.Now;
+                //sms.Sms_Text = vm.SmsText;
+                //if (vm.CampaignId != 0)
+                //{
+                //    sms.Campaign_Id = vm.CampaignId;
+                //}
+                //sms.Message_Type =(int)MessageType.Main_Feedback_SMS;
+
+
+                //smsCounter.GetSmsCount(sms);
+                ////smscounter.getcount(sms)
+                //sms.CreatedBy = GetLoggedInId();
+                //sms.CreatedDate = DateTime.Now;
+
+                //if (message_status.Contains("ESME_ROK"))
+                //{
+                //    sms.Sms_Sent_Status = "Success";
+                //}
+                //else
+                //{
+                //    sms.Sms_Sent_Status = "Fail";
+                //}
+                //logger.LogInfo("Saving Campaign SMS..........");
+                //smsresult = smsService.CreateOrUpdateCommand(sms);
+                //#endregion SaveSms                   
+            }
+            catch (Exception ex)
+            {
+                logger.Log(ex);
+            }
+
+
+            return "ACK/Jasmin";
+        }
+        [AllowAnonymous]
+        [HttpGet, HttpPost]
         [Route("SendSmsMptAndTelenor")]
         public string SendSmsMptAndTelenor([FromQuery] SmsEntryViewModel vm)
         {
             try
             {
+                //logger.LogDebug("Inside SendSmsMptAndTelenor " + Request.QueryString.ToString());
                 logger.LogDebug("Inside SendSmsMptAndTelenor " + vm.Operator + vm.DataInfoId + vm.CampaignId + vm.SmsText);
                 //#region SaveSms
                 //CommandResult<Sms> smsresult = new CommandResult<Sms>();
@@ -270,14 +390,22 @@ namespace NY.Framework.Web.Controllers.pfp
             {
                 if (!string.IsNullOrEmpty(mobile))
                 {
-                    var first =mobile.Substring(0, 4);
-                    var last = mobile.Last().ToString();
-                    var star = "";
-                    for (int i = 0; i < mobile.Length - 5; i++)
+                    if(mobile.Length <= 4)
                     {
-                        star += "*";
+                        mobilelist.Add(mobile);
                     }
-                   mobilelist.Add( first + star + last);
+                    else
+                    {
+                        var first = mobile.Substring(0, 4);
+                        var last = mobile.Last().ToString();
+                        var star = "";
+                        for (int i = 0; i < mobile.Length - 5; i++)
+                        {
+                            star += "*";
+                        }
+                        mobilelist.Add(first + star + last);
+                    }
+                    
                 }
             }          
             return Json(mobilelist);
