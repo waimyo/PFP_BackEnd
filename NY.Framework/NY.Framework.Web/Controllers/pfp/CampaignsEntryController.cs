@@ -192,48 +192,49 @@ namespace NY.Framework.Web.Controllers.pfp
             {
                 //logger.LogDebug("Inside SendSmsMptAndTelenor " + Request.QueryString.ToString());
                 logger.LogDebug("Inside SendSmsMptAndTelenor " + vm.Operator + vm.DataInfoId + vm.CampaignId + vm.SmsText);
-                //#region SaveSms
-                //CommandResult<Sms> smsresult = new CommandResult<Sms>();
-                //Sms sms = new Sms();
+                #region SaveSms
+                CommandResult<Sms> smsresult = new CommandResult<Sms>();
+                Sms sms = new Sms();
 
-                //sms.IsDeleted = false;
+                sms.IsDeleted = false;
 
-                //string[] arr = vm.Operator.Split('?');
-                //sms.Operator = arr[0];
-                //string message_status = arr[1];
+                string[] arr = vm.Operator.Split('?');
+                sms.Operator = arr[0];
+                string message_status = arr[1];
 
-                //sms.Direction = 1;
+                sms.Direction = 1;
+                sms.Sms_Code_Id = 1;
                 //sms.Sms_Code_Id = vm.SmsCodeId;
-                //logger.LogDebug("operator" + sms.Operator + " status " + message_status + "cid" + sms.Sms_Code_Id);
-                //if (vm.DataInfoId != 0)
-                //{
-                //    sms.DataInfo_Id = vm.DataInfoId;
-                //}
-                //sms.Sms_Time =DateTime.Now;
-                //sms.Sms_Text = vm.SmsText;
-                //if (vm.CampaignId != 0)
-                //{
-                //    sms.Campaign_Id = vm.CampaignId;
-                //}
-                //sms.Message_Type =(int)MessageType.Main_Feedback_SMS;
+                logger.LogDebug("operator" + sms.Operator + " status " + message_status + "cid" + sms.Sms_Code_Id);
+                if (vm.DataInfoId != 0)
+                {
+                    sms.DataInfo_Id = vm.DataInfoId;
+                }
+                sms.Sms_Time = DateTime.Now;
+                sms.Sms_Text = vm.SmsText;
+                if (vm.CampaignId != 0)
+                {
+                    sms.Campaign_Id = vm.CampaignId;
+                }
+                sms.Message_Type = (int)MessageType.Main_Feedback_SMS;
 
 
-                //smsCounter.GetSmsCount(sms);
-                ////smscounter.getcount(sms)
-                //sms.CreatedBy = GetLoggedInId();
-                //sms.CreatedDate = DateTime.Now;
+                smsCounter.GetSmsCount(sms);
+                //smscounter.getcount(sms)
+                sms.CreatedBy = GetLoggedInId();
+                sms.CreatedDate = DateTime.Now;
 
-                //if (message_status.Contains("ESME_ROK"))
-                //{
-                //    sms.Sms_Sent_Status = "Success";
-                //}
-                //else
-                //{
-                //    sms.Sms_Sent_Status = "Fail";
-                //}
-                //logger.LogInfo("Saving Campaign SMS..........");
-                //smsresult = smsService.CreateOrUpdateCommand(sms);
-                //#endregion SaveSms                   
+                if (message_status.Contains("ESME_ROK"))
+                {
+                    sms.Sms_Sent_Status = "Success";
+                }
+                else
+                {
+                    sms.Sms_Sent_Status = "Fail";
+                }
+                logger.LogInfo("Saving Campaign SMS..........");
+                smsresult = smsService.CreateOrUpdateCommand(sms);
+                #endregion SaveSms                   
             }
             catch (Exception ex)
             {
@@ -297,28 +298,32 @@ namespace NY.Framework.Web.Controllers.pfp
 
                                 #region SendMessage
                                 logger.LogInfo("Sending Campaign SMS..........");
-                                IRestResponse restResponse = restsharpclient.SendSms(smsvm.Operator, m.data.mobile, campaignvm.SmsShortCodeText, formattedmessage);
+                                IRestResponse restResponse = restsharpclient.SendSms(smsvm, m.data.mobile, campaignvm.SmsShortCodeText, formattedmessage);
                                 #endregion SendMessage
 
                                 #region SaveSms
-                                CommandResult<Sms> smsresult = new CommandResult<Sms>();
-                            Sms sms = new Sms();
-                            sms = smsMapper.MapEntryViewModelToModel(sms, smsvm);
-                            smsCounter.GetSmsCount(sms);
-                                //smscounter.getcount(sms)
-                            sms.CreatedBy =createby.ID;
-                            sms.CreatedDate = DateTime.Now;
-                            sms.IsDeleted = false;
-                                if (restResponse.StatusCode != HttpStatusCode.OK)
-                                {
-                                    sms.Sms_Sent_Status = "Fail";
-                                }
-                                else
-                                {
-                                    sms.Sms_Sent_Status = "Success";
-                                }
-                                logger.LogInfo("Saving Campaign SMS..........");
-                            smsresult = smsService.CreateOrUpdateCommand(sms);
+                                //if(smsvm.Operator != "mpt1111" && smsvm.Operator != "telenor1111")
+                                //{
+                                    CommandResult<Sms> smsresult = new CommandResult<Sms>();
+                                    Sms sms = new Sms();
+                                    sms = smsMapper.MapEntryViewModelToModel(sms, smsvm);
+                                    smsCounter.GetSmsCount(sms);
+                                    //smscounter.getcount(sms)
+                                    sms.CreatedBy = createby.ID;
+                                    sms.CreatedDate = DateTime.Now;
+                                    sms.IsDeleted = false;
+                                    if (restResponse.StatusCode != HttpStatusCode.OK)
+                                    {
+                                        sms.Sms_Sent_Status = "Fail";
+                                    }
+                                    else
+                                    {
+                                        sms.Sms_Sent_Status = "Success";
+                                    }
+                                    logger.LogInfo("Saving Campaign SMS..........");
+                                    smsresult = smsService.CreateOrUpdateCommand(sms);
+                                //}
+                               
                             #endregion SaveSms                   
 
                         }

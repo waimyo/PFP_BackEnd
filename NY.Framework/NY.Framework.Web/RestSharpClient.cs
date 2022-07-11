@@ -11,12 +11,12 @@ namespace NY.Framework.Web
 {
     public class RestSharpClient
     {
-        public IRestResponse SendSms(string _operator, string phonenumber, string smsshortcode, string sms)
+        public IRestResponse SendSms(SmsEntryViewModel vm, string phonenumber, string smsshortcode, string sms)
         {
             IRestResponse restResponse = new RestResponse();
             string phno = "";
-            if (_operator.Equals("telenor1111") || _operator.Equals("mpt1111") ||
-                _operator.Equals("mytel1111"))
+            if (vm.Operator.Equals("telenor1111") || vm.Operator.Equals("mpt1111") ||
+                vm.Operator.Equals("mytel1111"))
             {
                 phno = string.Concat("95", phonenumber.Remove(0, 1));
             }
@@ -24,15 +24,15 @@ namespace NY.Framework.Web
             {
                 phno = phonenumber;
             }
-            if (_operator.Equals("mytel1111"))
+            if (vm.Operator.Equals("mytel1111"))
             {
                 restResponse = SendMytelSms(smsshortcode, phno, sms);
             }
-            if (_operator.Equals("ooredoo1111"))
+            if (vm.Operator.Equals("ooredoo1111"))
             {
                 restResponse =SendOoredooSms(smsshortcode, phno, sms);
             }
-            if (_operator.Equals("mpt1111"))
+            if (vm.Operator.Equals("mpt1111"))
             {
                 //MobileRegularExpression regularExpCls = new MobileRegularExpression();
                 //if (regularExpCls.CheckMPTLength(phno))
@@ -40,7 +40,7 @@ namespace NY.Framework.Web
                 restResponse = SendMptOrTelenorSms(smsshortcode, phno, sms, Constants.MptUserName, Constants.MptPassword);
             //}
             }
-            if (_operator.Equals("telenor1111"))
+            if (vm.Operator.Equals("telenor1111"))
             {
                 restResponse = SendMptOrTelenorSms(smsshortcode, phno, sms,Constants.TelenorUserName,Constants.TelenorPassword);
             }
@@ -118,6 +118,12 @@ namespace NY.Framework.Web
             request.AddParameter("hex-content", HttpUtility.UrlEncode(encodestr));
             request.AddParameter("username", user);
             request.AddParameter("password", _password);
+
+            //request.AddParameter("dlr", "yes");
+            ////request.AddParameter("dlr-url", "https://pfp.gov.mm/api/campaignsentry/SendSmsMptAndTelenorWithAllParams");
+            //request.AddParameter("dlr-url", "https://pfp.gov.mm/api/campaignsentry/SendSmsMptAndTelenor?DataInfoId=" + vm.DataInfoId + "&SmsText=" + vm.SmsText + "&CampaignId=" + vm.CampaignId + "&SmsCodeId=" + vm.SmsCodeId + "&Operator=" + vm.Operator);
+            //request.AddParameter("dlr-level", 3);
+            //request.AddParameter("dlr-method", "GET");
 
             IRestResponse restSharpResponse = client.Execute(request);
             if (restSharpResponse != null && restSharpResponse.Content != null && restSharpResponse.Content.Contains("Success"))

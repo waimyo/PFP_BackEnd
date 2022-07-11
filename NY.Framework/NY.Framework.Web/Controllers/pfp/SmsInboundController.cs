@@ -264,7 +264,7 @@ namespace NY.Framework.Web.Controllers.pfp
                 {
                     logger.LogInfo("Sending Closing SMS**********");
                     //when reply message has saved to sms table,send closing message back.
-                    IRestResponse restResponse = restsharpclient.SendSms(smsvm.Operator, vm.From, vm.To, campaignSmsInfo.Campaign.Closing_Message);
+                    IRestResponse restResponse = restsharpclient.SendSms(smsvm, vm.From, vm.To, campaignSmsInfo.Campaign.Closing_Message);
 
                     //after sending closing message, save closing_message info to sms table
                     #region SaveClosingMessage
