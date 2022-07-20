@@ -124,87 +124,142 @@ namespace NY.Framework.Web.Controllers.pfp
 
             return "ACK/Jasmin";
         }
-
         [AllowAnonymous]
         [HttpGet, HttpPost]
-        [Route("SendSmsMptAndTelenorWithQueryString")]
-        public string SendSmsMptAndTelenorWithQueryString([FromForm] SmsEntryViewModel vm)
+        [Route("SendSmsOoredoo")]
+        public string SendSmsOoredoo([FromForm] SmsEntryViewModel vm)
         {
             try
             {
-                logger.LogDebug("Inside Ooredoo SMS ID: " + vm.id);
-                var forms = "";
-                foreach(var f in Request.Form) {
-                    forms += f.Key + "   " + f.Value + " >>> ";
-
-                    } 
-                
-                string body = "";
-                using(System.IO.StreamReader stream = new System.IO.StreamReader(Request.Body))
-                {
-                    body = stream.ReadToEnd();
+                //logger.LogDebug("Inside Ooredoo sms " + vm);
+                //var forms = "";
+                //foreach (var f in Request.Form)
+                //{
                     
-                }
+                //    forms += f.Key + "   " + f.Value + " >>> ";
+                    
+                //}
+                //logger.LogDebug("Inside Ooredoo " + "form " + forms + " Custom ID" + Request.Form["customID"]);
 
-                var headers = "";
-
-                foreach(var h in Request.Headers)
+                #region SaveSms
+                logger.LogInfo("SendSmsOoredoo : Status " + Request.Form["status"] + " CustomID " + Request.Form["customID"]);
+                int customID = Convert.ToInt32(Request.Form["customID"]);
+                CommandResult<Sms> smsresult = new CommandResult<Sms>();
+                Sms sms = new Sms();
+                if (customID > 0)
                 {
-                    headers += h.Key + "..." + h.Value;
+                    logger.LogInfo("Get SMS By Id = " + customID);
+                    sms = smsRepository.Get(customID);
                 }
-                logger.LogDebug("Inside SendSmsMptAndTelenor "+ "form " + forms + " method: " + Request.Method.ToString() + "  headers: " + headers + " body: " + body + Request.QueryString.ToString());
-                //logger.LogDebug("Inside SendSmsMptAndTelenor " + vm.Operator + vm.DataInfoId + vm.CampaignId + vm.SmsText);
-                //#region SaveSms
-                //CommandResult<Sms> smsresult = new CommandResult<Sms>();
-                //Sms sms = new Sms();
+                if (sms != null)
+                {
+                    logger.LogInfo("SendSmsOoredoo : " + Request.Form["status"]);
+                    string message_status = "";
+                    if (Request.Form["status"] == "D")
+                    {
+                        sms.Sms_Sent_Status = "Success";
+                    }
+                    else
+                    {
+                        sms.Sms_Sent_Status = "Fail";
+                    }
+                    
+                    logger.LogInfo("Saving Campaign SMS.......... sms status = " + sms.Sms_Sent_Status);
+                    smsresult = smsService.CreateOrUpdateCommand(sms);
+                }
 
-                //sms.IsDeleted = false;
+                #endregion SaveSms  
 
-                //string[] arr = vm.Operator.Split('?');
-                //sms.Operator = arr[0];
-                //string message_status = arr[1];
-
-                //sms.Direction = 1;
-                //sms.Sms_Code_Id = vm.SmsCodeId;
-                //logger.LogDebug("operator" + sms.Operator + " status " + message_status + "cid" + sms.Sms_Code_Id);
-                //if (vm.DataInfoId != 0)
-                //{
-                //    sms.DataInfo_Id = vm.DataInfoId;
-                //}
-                //sms.Sms_Time =DateTime.Now;
-                //sms.Sms_Text = vm.SmsText;
-                //if (vm.CampaignId != 0)
-                //{
-                //    sms.Campaign_Id = vm.CampaignId;
-                //}
-                //sms.Message_Type =(int)MessageType.Main_Feedback_SMS;
-
-
-                //smsCounter.GetSmsCount(sms);
-                ////smscounter.getcount(sms)
-                //sms.CreatedBy = GetLoggedInId();
-                //sms.CreatedDate = DateTime.Now;
-
-                //if (message_status.Contains("ESME_ROK"))
-                //{
-                //    sms.Sms_Sent_Status = "Success";
-                //}
-                //else
-                //{
-                //    sms.Sms_Sent_Status = "Fail";
-                //}
-                //logger.LogInfo("Saving Campaign SMS..........");
-                //smsresult = smsService.CreateOrUpdateCommand(sms);
-                //#endregion SaveSms                   
             }
             catch (Exception ex)
             {
                 logger.Log(ex);
             }
-
-
             return "ACK/Jasmin";
         }
+
+        //[AllowAnonymous]
+        //[HttpGet, HttpPost]
+        //[Route("SendSmsMptAndTelenorWithQueryString")]
+        //public string SendSmsMptAndTelenorWithQueryString([FromForm] SmsEntryViewModel vm)
+        //{
+        //    try
+        //    {
+        //        logger.LogDebug("Inside Ooredoo SMS ID: " + vm.id);
+        //        var forms = "";
+        //        foreach(var f in Request.Form) {
+        //            forms += f.Key + "   " + f.Value + " >>> ";
+
+        //            } 
+                
+        //        string body = "";
+        //        using(System.IO.StreamReader stream = new System.IO.StreamReader(Request.Body))
+        //        {
+        //            body = stream.ReadToEnd();
+                    
+        //        }
+
+        //        var headers = "";
+
+        //        foreach(var h in Request.Headers)
+        //        {
+        //            headers += h.Key + "..." + h.Value;
+        //        }
+        //        logger.LogDebug("Inside SendSmsMptAndTelenor "+ "form " + forms + " method: " + Request.Method.ToString() + "  headers: " + headers + " body: " + body + Request.QueryString.ToString());
+        //        //logger.LogDebug("Inside SendSmsMptAndTelenor " + vm.Operator + vm.DataInfoId + vm.CampaignId + vm.SmsText);
+        //        //#region SaveSms
+        //        //CommandResult<Sms> smsresult = new CommandResult<Sms>();
+        //        //Sms sms = new Sms();
+
+        //        //sms.IsDeleted = false;
+
+        //        //string[] arr = vm.Operator.Split('?');
+        //        //sms.Operator = arr[0];
+        //        //string message_status = arr[1];
+
+        //        //sms.Direction = 1;
+        //        //sms.Sms_Code_Id = vm.SmsCodeId;
+        //        //logger.LogDebug("operator" + sms.Operator + " status " + message_status + "cid" + sms.Sms_Code_Id);
+        //        //if (vm.DataInfoId != 0)
+        //        //{
+        //        //    sms.DataInfo_Id = vm.DataInfoId;
+        //        //}
+        //        //sms.Sms_Time =DateTime.Now;
+        //        //sms.Sms_Text = vm.SmsText;
+        //        //if (vm.CampaignId != 0)
+        //        //{
+        //        //    sms.Campaign_Id = vm.CampaignId;
+        //        //}
+        //        //sms.Message_Type =(int)MessageType.Main_Feedback_SMS;
+
+
+        //        //smsCounter.GetSmsCount(sms);
+        //        ////smscounter.getcount(sms)
+        //        //sms.CreatedBy = GetLoggedInId();
+        //        //sms.CreatedDate = DateTime.Now;
+
+        //        //if (message_status.Contains("ESME_ROK"))
+        //        //{
+        //        //    sms.Sms_Sent_Status = "Success";
+        //        //}
+        //        //else
+        //        //{
+        //        //    sms.Sms_Sent_Status = "Fail";
+        //        //}
+        //        //logger.LogInfo("Saving Campaign SMS..........");
+        //        //smsresult = smsService.CreateOrUpdateCommand(sms);
+        //        //#endregion SaveSms                   
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logger.Log(ex);
+        //    }
+
+
+        //    return "ACK/Jasmin";
+        //}
+        
+        
         [AllowAnonymous]
         [HttpGet, HttpPost]
         [Route("SendSmsMptAndTelenor")]
@@ -322,7 +377,7 @@ namespace NY.Framework.Web.Controllers.pfp
                                     sms.CreatedDate = DateTime.Now;
                                     sms.IsDeleted = false;
                                     
-                                if(smsvm.Operator == "ooredoo1111" || smsvm.Operator == "mytel1111")
+                                if(smsvm.Operator == "mytel1111")
                                 {
                                     sms.Sms_Sent_Status = "Success";
                                 }

@@ -7,6 +7,7 @@ namespace NY.Framework.Web.Models
 {
     public class SmsEntryViewModel
     {
+        public int customID { get; set; }
         public int id { get; set; }
         public int Direction { get; set; }
         public int SmsCodeId { get; set; }
