@@ -30,19 +30,19 @@ namespace NY.Framework.Web
             }
             if (vm.Operator.Equals("ooredoo1111"))
             {
-                restResponse =SendOoredooSms(smsshortcode, phno, sms);
+                restResponse =SendOoredooSms(smsshortcode, phno, sms,vm);
             }
             if (vm.Operator.Equals("mpt1111"))
             {
                 //MobileRegularExpression regularExpCls = new MobileRegularExpression();
                 //if (regularExpCls.CheckMPTLength(phno))
                 //{
-                restResponse = SendMptOrTelenorSms(smsshortcode, phno, sms, Constants.MptUserName, Constants.MptPassword);
+                restResponse = SendMptOrTelenorSms(smsshortcode, phno, sms, Constants.MptUserName, Constants.MptPassword,vm);
             //}
             }
             if (vm.Operator.Equals("telenor1111"))
             {
-                restResponse = SendMptOrTelenorSms(smsshortcode, phno, sms,Constants.TelenorUserName,Constants.TelenorPassword);
+                restResponse = SendMptOrTelenorSms(smsshortcode, phno, sms,Constants.TelenorUserName,Constants.TelenorPassword,vm);
             }
 
             return restResponse;
@@ -75,7 +75,7 @@ namespace NY.Framework.Web
 
         }
 
-        public IRestResponse SendOoredooSms(string from, string to, string msg)
+        public IRestResponse SendOoredooSms(string from, string to, string msg,SmsEntryViewModel vm)
         {
             RestClient client = new RestClient(Constants.OoredooApiUrl);
             // client.Authenticator = new JwtAuthenticator(Constants.OoredooApiKey);
@@ -88,7 +88,7 @@ namespace NY.Framework.Web
             request.AddParameter("sender", from);
             request.AddParameter("message", HttpUtility.UrlEncode("@U"+encodestr));
             request.AddParameter("apikey", Constants.OoredooApiKey);
-
+            request.AddParameter("custom", vm.id);
             //var data = new { numbers = to, sender = from, message = msg, apikey =Constants.OoredooApiKey };
             //request.AddJsonBody(data);
             IRestResponse restSharpResponse = client.Execute(request);
@@ -104,7 +104,7 @@ namespace NY.Framework.Web
             return restSharpResponse;
         }
 
-        public IRestResponse SendMptOrTelenorSms(string _from,string _to,string msg,string user,string _password)
+        public IRestResponse SendMptOrTelenorSms(string _from,string _to,string msg,string user,string _password ,SmsEntryViewModel vm)
         {        
             RestClient client = new RestClient(Constants.MptTelenorApiUrl);
             RestRequest request = new RestRequest("",Method.POST);
@@ -119,11 +119,11 @@ namespace NY.Framework.Web
             request.AddParameter("username", user);
             request.AddParameter("password", _password);
 
-            //request.AddParameter("dlr", "yes");
+            request.AddParameter("dlr", "yes");
             ////request.AddParameter("dlr-url", "https://pfp.gov.mm/api/campaignsentry/SendSmsMptAndTelenorWithAllParams");
-            //request.AddParameter("dlr-url", "https://pfp.gov.mm/api/campaignsentry/SendSmsMptAndTelenor?DataInfoId=" + vm.DataInfoId + "&SmsText=" + vm.SmsText + "&CampaignId=" + vm.CampaignId + "&SmsCodeId=" + vm.SmsCodeId + "&Operator=" + vm.Operator);
-            //request.AddParameter("dlr-level", 3);
-            //request.AddParameter("dlr-method", "GET");
+            request.AddParameter("dlr-url", "https://pfp.gov.mm/api/campaignsentry/SendSmsMptAndTelenor?id=" + vm.id + "&Operator=" + vm.Operator);
+            request.AddParameter("dlr-level", 3);
+            request.AddParameter("dlr-method", "GET");
 
             IRestResponse restSharpResponse = client.Execute(request);
             if (restSharpResponse != null && restSharpResponse.Content != null && restSharpResponse.Content.Contains("Success"))

@@ -334,7 +334,7 @@ namespace NY.Framework.Web.Controllers.Settings
                 };
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 user.Token = tokenHandler.WriteToken(token);
-                user.password = null;
+                //user.password = null;
                 UserEntryViewModel vm = new UserEntryViewModel();
                 vm.Id = user.ID;
                 vm.name = user.name;

@@ -27,6 +27,7 @@ namespace NY.Framework.Model.Commands.SmsCommands
         {
             repo.Save(entity);
             result.Success = true;
+            result.Result.Add(entity);
             result.Messages.Add(Constants.SAVE_SUCCESS_MESSAGE);
             return result;
         }

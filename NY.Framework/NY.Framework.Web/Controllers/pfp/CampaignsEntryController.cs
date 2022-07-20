@@ -14,6 +14,7 @@ using NY.Framework.Application.Interfaces;
 using NY.Framework.Infrastructure.Commands;
 using NY.Framework.Infrastructure.Enumerations;
 using NY.Framework.Infrastructure.Logging;
+using NY.Framework.Infrastructure.Repositories;
 using NY.Framework.Infrastructure.Utilities;
 using NY.Framework.Model.Entities;
 using NY.Framework.Model.Repositories;
@@ -40,7 +41,7 @@ namespace NY.Framework.Web.Controllers.pfp
         SmsMapper smsMapper;
         IGroupRepository groupRepo;
         Logger logger;
-
+        ISmsRepository smsRepository;
         
         
         RestSharpClient restsharpclient = new RestSharpClient();
@@ -49,7 +50,7 @@ namespace NY.Framework.Web.Controllers.pfp
 
         public CampaignsEntryController(ICampaignService _campaignService,
             IGroupMemberRepository _groupMemberRepo, IGroupRepository _groupRepo,
-        ICampaignsRepository _campaignRepo, ISmsService _smsService
+        ICampaignsRepository _campaignRepo, ISmsService _smsService,ISmsRepository _smsRepository
             )
             : base(typeof(CampaignsEntryController), ProgramCodeEnum.CAMPAIGN_ENTRY)
         {
@@ -59,6 +60,7 @@ namespace NY.Framework.Web.Controllers.pfp
             groupRepo = _groupRepo;
             campaignRepo = _campaignRepo;
             smsService = _smsService;
+            smsRepository = _smsRepository;
             smsMapper = new SmsMapper();
             logger = new Logger(typeof(CampaignsEntryController));
             smsCounter = new SmsCounter();
@@ -126,11 +128,31 @@ namespace NY.Framework.Web.Controllers.pfp
         [AllowAnonymous]
         [HttpGet, HttpPost]
         [Route("SendSmsMptAndTelenorWithQueryString")]
-        public string SendSmsMptAndTelenorWithQueryString([FromQuery] SmsEntryViewModel vm)
+        public string SendSmsMptAndTelenorWithQueryString([FromForm] SmsEntryViewModel vm)
         {
             try
             {
-                logger.LogDebug("Inside SendSmsMptAndTelenor " + Request.QueryString.ToString());
+                logger.LogDebug("Inside Ooredoo SMS ID: " + vm.id);
+                var forms = "";
+                foreach(var f in Request.Form) {
+                    forms += f.Key + "   " + f.Value + " >>> ";
+
+                    } 
+                
+                string body = "";
+                using(System.IO.StreamReader stream = new System.IO.StreamReader(Request.Body))
+                {
+                    body = stream.ReadToEnd();
+                    
+                }
+
+                var headers = "";
+
+                foreach(var h in Request.Headers)
+                {
+                    headers += h.Key + "..." + h.Value;
+                }
+                logger.LogDebug("Inside SendSmsMptAndTelenor "+ "form " + forms + " method: " + Request.Method.ToString() + "  headers: " + headers + " body: " + body + Request.QueryString.ToString());
                 //logger.LogDebug("Inside SendSmsMptAndTelenor " + vm.Operator + vm.DataInfoId + vm.CampaignId + vm.SmsText);
                 //#region SaveSms
                 //CommandResult<Sms> smsresult = new CommandResult<Sms>();
@@ -191,49 +213,41 @@ namespace NY.Framework.Web.Controllers.pfp
             try
             {
                 //logger.LogDebug("Inside SendSmsMptAndTelenor " + Request.QueryString.ToString());
-                logger.LogDebug("Inside SendSmsMptAndTelenor " + vm.Operator + vm.DataInfoId + vm.CampaignId + vm.SmsText);
+                logger.LogDebug("Inside SendSmsMptAndTelenor: SMS ID " + vm.id + vm.Operator);
                 #region SaveSms
                 CommandResult<Sms> smsresult = new CommandResult<Sms>();
                 Sms sms = new Sms();
-
-                sms.IsDeleted = false;
-
-                string[] arr = vm.Operator.Split('?');
-                sms.Operator = arr[0];
-                string message_status = arr[1];
-
-                sms.Direction = 1;
-                sms.Sms_Code_Id = 1;
-                //sms.Sms_Code_Id = vm.SmsCodeId;
-                logger.LogDebug("operator" + sms.Operator + " status " + message_status + "cid" + sms.Sms_Code_Id);
-                if (vm.DataInfoId != 0)
+                if (vm.id > 0)
                 {
-                    sms.DataInfo_Id = vm.DataInfoId;
+                    logger.LogInfo("Get SMS By Id = " + vm.id);
+                    sms = smsRepository.Get(vm.id);
                 }
-                sms.Sms_Time = DateTime.Now;
-                sms.Sms_Text = vm.SmsText;
-                if (vm.CampaignId != 0)
+                if (sms != null)
                 {
-                    sms.Campaign_Id = vm.CampaignId;
+                    logger.LogInfo("SendSmsMptAndTelenor : " + vm.Operator);
+                    string message_status = "";
+                    if (vm.Operator.Contains("?"))
+                    {                        
+                        string[] arr = vm.Operator.Split('?');
+                        message_status = arr[1];
+                        if (message_status.Contains("ESME_ROK"))
+                        {
+                            sms.Sms_Sent_Status = "Success";
+                        }
+                        else
+                        {
+                            sms.Sms_Sent_Status = "Fail";
+                        }
+                    }
+                    else
+                    {
+                        //sms.Operator = vm.Operator;
+                        sms.Sms_Sent_Status = "Fail";
+                    }                    
+                    logger.LogInfo("Saving Campaign SMS.......... sms status = "+sms.Sms_Sent_Status);
+                    smsresult = smsService.CreateOrUpdateCommand(sms);
                 }
-                sms.Message_Type = (int)MessageType.Main_Feedback_SMS;
-
-
-                smsCounter.GetSmsCount(sms);
-                //smscounter.getcount(sms)
-                sms.CreatedBy = GetLoggedInId();
-                sms.CreatedDate = DateTime.Now;
-
-                if (message_status.Contains("ESME_ROK"))
-                {
-                    sms.Sms_Sent_Status = "Success";
-                }
-                else
-                {
-                    sms.Sms_Sent_Status = "Fail";
-                }
-                logger.LogInfo("Saving Campaign SMS..........");
-                smsresult = smsService.CreateOrUpdateCommand(sms);
+                
                 #endregion SaveSms                   
             }
             catch (Exception ex)
@@ -296,11 +310,6 @@ namespace NY.Framework.Web.Controllers.pfp
                             smsvm.Operator = regularExpCls.Checkoperator(m.data.mobile);
                                 #endregion MaptoSmsEntryViewModel
 
-                                #region SendMessage
-                                logger.LogInfo("Sending Campaign SMS..........");
-                                IRestResponse restResponse = restsharpclient.SendSms(smsvm, m.data.mobile, campaignvm.SmsShortCodeText, formattedmessage);
-                                #endregion SendMessage
-
                                 #region SaveSms
                                 //if(smsvm.Operator != "mpt1111" && smsvm.Operator != "telenor1111")
                                 //{
@@ -312,23 +321,38 @@ namespace NY.Framework.Web.Controllers.pfp
                                     sms.CreatedBy = createby.ID;
                                     sms.CreatedDate = DateTime.Now;
                                     sms.IsDeleted = false;
-                                    if (restResponse.StatusCode != HttpStatusCode.OK)
-                                    {
-                                        sms.Sms_Sent_Status = "Fail";
-                                    }
-                                    else
-                                    {
-                                        sms.Sms_Sent_Status = "Success";
-                                    }
-                                    logger.LogInfo("Saving Campaign SMS..........");
+                                    
+                                if(smsvm.Operator == "ooredoo1111" || smsvm.Operator == "mytel1111")
+                                {
+                                    sms.Sms_Sent_Status = "Success";
+                                }
+                                else
+                                {
+                                    sms.Sms_Sent_Status = "Pending";
+                                }
+                                    
+                                //if (restResponse.StatusCode != HttpStatusCode.OK)
+                                //{
+                                //    sms.Sms_Sent_Status = "Fail";
+                                //}
+                                //else
+                                //{
+                                //    sms.Sms_Sent_Status = "Success";
+                                //}
+                                logger.LogInfo("Saving Campaign SMS..........");
                                     smsresult = smsService.CreateOrUpdateCommand(sms);
                                 //}
-                               
-                            #endregion SaveSms                   
+
+                                #endregion SaveSms                   
+
+                                #region SendMessage
+                                logger.LogInfo("Sending Campaign SMS..........");
+                                smsvm.id = smsresult.Result[0].ID;
+                                IRestResponse restResponse = restsharpclient.SendSms(smsvm, m.data.mobile, campaignvm.SmsShortCodeText, formattedmessage);
+                                #endregion SendMessage
+                            }
 
                         }
-
-                    }
 
                 }
                 return Json(result);
