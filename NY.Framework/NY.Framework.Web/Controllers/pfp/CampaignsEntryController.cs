@@ -366,8 +366,8 @@ namespace NY.Framework.Web.Controllers.pfp
                                 #endregion MaptoSmsEntryViewModel
 
                                 #region SaveSms
-                                //if(smsvm.Operator != "mpt1111" && smsvm.Operator != "telenor1111")
-                                //{
+                                if (smsvm.Operator != "mytel1111")
+                                {
                                     CommandResult<Sms> smsresult = new CommandResult<Sms>();
                                     Sms sms = new Sms();
                                     sms = smsMapper.MapEntryViewModelToModel(sms, smsvm);
@@ -377,34 +377,55 @@ namespace NY.Framework.Web.Controllers.pfp
                                     sms.CreatedDate = DateTime.Now;
                                     sms.IsDeleted = false;
                                     
-                                if(smsvm.Operator == "mytel1111")
-                                {
-                                    sms.Sms_Sent_Status = "Success";
+                                    if(smsvm.Operator == "mytel1111")
+                                    {
+                                        sms.Sms_Sent_Status = "Success";
+                                    }
+                                    else
+                                    {
+                                        sms.Sms_Sent_Status = "Pending";
+                                    }
+                                    
+                                    logger.LogInfo("Saving Campaign SMS..........");
+                                    smsresult = smsService.CreateOrUpdateCommand(sms);
+
+                                    #region SendMessage
+                                    logger.LogInfo("Sending Campaign SMS..........");
+                                    smsvm.id = smsresult.Result[0].ID;
+                                    IRestResponse restResponse = restsharpclient.SendSms(smsvm, m.data.mobile, campaignvm.SmsShortCodeText, formattedmessage);
+                                    #endregion SendMessage
                                 }
+                                #endregion SaveSms 
                                 else
                                 {
-                                    sms.Sms_Sent_Status = "Pending";
-                                }
-                                    
-                                //if (restResponse.StatusCode != HttpStatusCode.OK)
-                                //{
-                                //    sms.Sms_Sent_Status = "Fail";
-                                //}
-                                //else
-                                //{
-                                //    sms.Sms_Sent_Status = "Success";
-                                //}
-                                logger.LogInfo("Saving Campaign SMS..........");
+                                    #region SendMessage
+                                    logger.LogInfo("Sending Campaign SMS..........");
+                                    //smsvm.id = smsresult.Result[0].ID;
+                                    IRestResponse restResponse = restsharpclient.SendSms(smsvm, m.data.mobile, campaignvm.SmsShortCodeText, formattedmessage);
+                                    #endregion SendMessage
+
+                                    CommandResult<Sms> smsresult = new CommandResult<Sms>();
+                                    Sms sms = new Sms();
+                                    sms = smsMapper.MapEntryViewModelToModel(sms, smsvm);
+                                    smsCounter.GetSmsCount(sms);
+                                    //smscounter.getcount(sms)
+                                    sms.CreatedBy = createby.ID;
+                                    sms.CreatedDate = DateTime.Now;
+                                    sms.IsDeleted = false;
+
+                                    if (restResponse.StatusCode != HttpStatusCode.OK)
+                                    {
+                                        sms.Sms_Sent_Status = "Fail";
+                                    }
+                                    else
+                                    {
+                                        sms.Sms_Sent_Status = "Success";
+                                    }
+                                    logger.LogInfo("Saving Campaign SMS..........");
                                     smsresult = smsService.CreateOrUpdateCommand(sms);
-                                //}
+                                }
 
-                                #endregion SaveSms                   
 
-                                #region SendMessage
-                                logger.LogInfo("Sending Campaign SMS..........");
-                                smsvm.id = smsresult.Result[0].ID;
-                                IRestResponse restResponse = restsharpclient.SendSms(smsvm, m.data.mobile, campaignvm.SmsShortCodeText, formattedmessage);
-                                #endregion SendMessage
                             }
 
                         }
