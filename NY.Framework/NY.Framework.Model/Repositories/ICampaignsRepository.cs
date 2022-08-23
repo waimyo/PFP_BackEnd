@@ -9,5 +9,6 @@ namespace NY.Framework.Model.Repositories
     public interface ICampaignsRepository : IReadWriteRepository<Campaigns,int>
     {
          Campaigns FindByName(string name);
+        List<Campaigns> GetByEndTime();
     }
 }

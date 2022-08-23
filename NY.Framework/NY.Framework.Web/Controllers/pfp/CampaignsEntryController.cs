@@ -68,6 +68,31 @@ namespace NY.Framework.Web.Controllers.pfp
 
         [AllowAnonymous]
         [HttpGet, HttpPost]
+        [Route("SendSmsReceiptMyTel")]
+        public string SendSmsReceiptMyTel()
+        {
+            try
+            {
+                string sourceAddr = Request.Query["sourceAddr"].FirstOrDefault();
+                string smsId = Request.Query["smsId"].FirstOrDefault();
+                string dateTime = Request.Query["dateTime"].FirstOrDefault();
+
+                logger.LogDebug("sourceAddr = " + sourceAddr);
+                logger.LogDebug("smsId " + smsId);
+                logger.LogDebug("dateTime " + dateTime);
+                logger.LogDebug("Request Query String" + Request.QueryString.ToString());
+                logger.LogDebug("Request Query  " + Request.Query.ToString());
+            }
+            catch (Exception ex)
+            {
+                logger.Log(ex);
+            }
+
+            return "OK";
+        }
+
+        [AllowAnonymous]
+        [HttpGet, HttpPost]
         [Route("SendSmsMptAndTelenorWithAllParams")]
         public string SendSmsMptAndTelenorWithAllParams()
         {
@@ -124,6 +149,7 @@ namespace NY.Framework.Web.Controllers.pfp
 
             return "ACK/Jasmin";
         }
+        
         [AllowAnonymous]
         [HttpGet, HttpPost]
         [Route("SendSmsOoredoo")]
@@ -554,6 +580,32 @@ namespace NY.Framework.Web.Controllers.pfp
             }
 
             return Json(grouplist, new JsonSerializerSettings { ContractResolver = new DefaultContractResolver() });
+        }
+
+        [HttpPost]
+        [Route("CloseCampaignDaily")]
+        public IActionResult CloseCampaignDaily()
+        {
+            try
+            {
+                CommandResult<Campaigns> result = new CommandResult<Campaigns>();
+                List<Campaigns> list = campaignRepo.GetByEndTime();
+                logger.LogInfo("Start Close Campaign Daily Total Campaign " + list.Count());
+                foreach (var camp in list)
+                {
+                    camp.Status = false;//campaign close
+                    camp.ModifiedDate = DateTime.Now.Date;
+                    camp.ModifiedBy = camp.CreatedBy;
+                    result = campaignService.CreateOrUpdateCommand(camp);
+                }
+                logger.LogInfo("Updated Campaigns");
+                AuditLog(nameof(AuditAction.UPDATE), nameof(ProgramCodeEnum.CAMPAIGN_ENTRY));
+                return Json(result);
+            }
+            catch
+            {
+                return Json(GetServerJsonResult<Campaigns>());
+            }
         }
 
     }

@@ -19,5 +19,10 @@ namespace NY.Framework.DataAccess.Repositories
         {            
             return CustomQuery().Where(c => c.Name.Equals(name)).FirstOrDefault();
         }
+
+        public List<Campaigns> GetByEndTime()
+        {
+            return CustomQuery().Where(c => Convert.ToDateTime(c.End_Time).Date < DateTime.Now.Date && c.Status == true).ToList();
+        }
     }
 }
